@@ -27,4 +27,4 @@ Most of the code in this project has been written to the ES6 JavaScript specific
 
 ### This is obviously work in progress
 
-Please don't copy this.
+Please don't copy this. I'm serious.
