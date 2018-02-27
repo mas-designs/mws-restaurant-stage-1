@@ -1,0 +1,28 @@
+{
+  "name": "mws-restaurant-stage-1",
+  "version": "1.0.0",
+  "description": "This is my project for the mobile web specialist udacity nanodegree program",
+  "main": "index.html",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mas-designs/mws-restaurant-stage-1.git"
+  },
+  "keywords": [
+    "restaurant-review-app",
+    "udacity",
+    "restaurant",
+    "review",
+    "app",
+    "mobile-web-specialist",
+    "google"
+  ],
+  "author": "michael alexander stadler",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/mas-designs/mws-restaurant-stage-1/issues"
+  },
+  "homepage": "https://github.com/mas-designs/mws-restaurant-stage-1#readme"
+}
