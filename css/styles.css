@@ -235,6 +235,10 @@
         height: 100%;
         width: 100%;
     }
+    .inside #maincontent section{
+        width:100%;
+    }
+
     .inside #footer {
         bottom: 0;
         position: absolute;
