@@ -28,3 +28,9 @@ Most of the code in this project has been written to the ES6 JavaScript specific
 ### This is obviously work in progress
 
 Please don't copy this. I'm serious.
+
+###TODO:
+All content-related images include appropriate alternate text that clearly describes the content of the image. (Check, alt is set within responsive_helper.js
+Elements on the page use the appropriate semantic elements. For those elements in which a semantic element is not available, appropriate ARIA roles are defined. (ARIA-ROLES)
+Service Worker(seems to be done)
+Responsive Text (align center, or give map more space)
