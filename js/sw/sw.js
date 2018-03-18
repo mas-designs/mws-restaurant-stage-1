@@ -1,9 +1,36 @@
+import idb from 'idb';
 var staticCacheName = 'mws-static';
 var contentImgsCache = 'mws-static-img';
+var pageCacheName = 'mws-dynamic';
+var filesToCache = [
+    '.',
+    '../../css/styles.css',
+    '../../js/dbhelper.js',
+    '../../js/main.js',
+    '../../js/responsive_helper.js',
+    '../../js/restaurant_info.js',
+    '../../index.html'
+];
 var allCaches = [
     staticCacheName,
-    contentImgsCache
+    contentImgsCache,
+    pageCacheName
 ];
+
+self.addEventListener('install', function(event) {
+    console.log('Attempting to install service worker and cache static assets');
+    event.waitUntil(
+        caches.open(staticCacheName)
+            .then(function(cache) {
+                return cache.addAll(filesToCache);
+            })
+    );
+    var restaurantPromise = idb.open('restaurant-db',1,function(upgradeDb){
+        var restaurantStore= upgradeDb.createObjectStore('restaurants');
+        restaurantStore.put("hello","world");
+
+    });
+});
 
 self.addEventListener('activate', function(event) {
     event.waitUntil(
@@ -21,13 +48,12 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(event) {
-    var requestUrl = new URL(event.request.url);
-    caches.open(staticCacheName).then(function(cache){
-        return cache.addAll(requestUrl);
-    });
     event.respondWith(
-        caches.match(event.request).then(function(response) {
-            return response || fetch(event.request);
+        caches.open(pageCacheName).then(function(cache) {
+            return fetch(event.request).then(function(response) {
+                cache.put(event.request, response.clone());
+                return response;
+            });
         })
     );
 });
