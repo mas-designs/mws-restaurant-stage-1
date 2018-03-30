@@ -1,3 +1,5 @@
+@charset "utf-8";
+/* CSS Document */
 body, td, th, p {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10pt;
@@ -75,6 +77,12 @@ nav h1 a {
     letter-spacing: 10px;
     text-transform: uppercase;
 }
+nav h1 a:hover {
+    color: #fff;
+    text-decoration: underline;
+
+}
+
 u#breadcrumb {
     padding: 10px 40px 16px;
     list-style: none;
@@ -289,6 +297,12 @@ header,#breadcrumb,#breadcrumb li{
     padding:0 1em 1em 1em;
 }
 
+
+
+
+
+
+
 @media only screen and (max-width: 420px) {
     nav h1 a {
         color: #fff;
@@ -297,6 +311,7 @@ header,#breadcrumb,#breadcrumb li{
         letter-spacing: 10px;
         text-transform: uppercase;
     }
+    /* ====================== Restaurant Filtering ====================== */
     .filter-options {
         width: 100%;
         height: 150px;
@@ -328,16 +343,11 @@ header,#breadcrumb,#breadcrumb li{
         border-top: 1px solid #fff;
         width:100%;
     }
-    #reviews-container h2 {
-        color: #f58500;
-        font-size: 24pt;
-        font-weight: 300;
-        letter-spacing: -1px;
-        padding-bottom: 1pt;
-    }
     #reviews-list {
         padding: 0;
     }
+
+
 }
 @media only screen and (min-width: 421px) and (max-width: 1024px) {
     #restaurants-list .restaurant-img, #restaurants-list img  {
@@ -369,20 +379,16 @@ header,#breadcrumb,#breadcrumb li{
     #reviews-container {
         padding: 30px 40px 80px;
     }
-    #reviews-container h2 {
-        color: #f58500;
-        font-size: 24pt;
-        font-weight: 300;
-        letter-spacing: -1px;
-        padding-bottom: 1pt;
-    }
     #reviews-list {
 
         padding: 0;
         margin-right:2em;
     }
+
+
 }
 @media only screen and (min-width: 1025px) {
+
     #restaurants-list li {
         background-color: #fff;
         border: 2px solid #ccc;
@@ -424,13 +430,6 @@ header,#breadcrumb,#breadcrumb li{
     #reviews-container {
         padding: 30px 40px 80px 90px;
     }
-    #reviews-container h2 {
-        color: #f58500;
-        font-size: 24pt;
-        font-weight: 300;
-        letter-spacing: -1px;
-        padding-bottom: 1pt;
-    }
     #reviews-list {
 
         padding: 0;
@@ -438,3 +437,7 @@ header,#breadcrumb,#breadcrumb li{
     }
 
 }
+
+
+
+
