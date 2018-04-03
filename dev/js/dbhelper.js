@@ -183,5 +183,16 @@ class DBHelper {
     );
     return marker;
   }
-
+}
+//Install of serviceworker
+if ('serviceWorker' in navigator){
+    navigator.serviceWorker
+        .register('sw.min.js')
+        .then(function(registration){
+            console.log('Serviceworker was sucessfully registered', registration);
+            //IDB Erstellung
+        })
+        .catch(function(err){
+            console.log('Could not register Serviceworker', err);
+        })
 }

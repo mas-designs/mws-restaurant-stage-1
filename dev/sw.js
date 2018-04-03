@@ -1,21 +1,30 @@
-import idb from 'idb';
 var staticCacheName = 'mws-static';
 var contentImgsCache = 'mws-static-img';
 var pageCacheName = 'mws-dynamic';
 var filesToCache = [
-    '.',
-    '../../css/styles.css',
-    '../../js/dbhelper.js',
-    '../../js/main.js',
-    '../../js/responsive_helper.js',
-    '../../js/restaurant_info.js',
-    '../../index.html'
+    'css/styles.min.css',
+    'js/dbhelper.min.js',
+    'js/main.min.js',
+    'js/responsive_helper.min.js',
+    'js/restaurant_info.min.js',
+    'index.html',
+    'restaurant.html'
 ];
 var allCaches = [
     staticCacheName,
     contentImgsCache,
     pageCacheName
 ];
+
+for(var i =1;i<11;i++){
+    var imageNameHuge='img/'+i+'-huge.jpg',
+        imageNameLarge='img/'+i+'-large.jpg',
+        imageNameSmall='img/'+i+'-small.jpg';
+    filesToCache.push(imageNameHuge);
+    filesToCache.push(imageNameLarge);
+    filesToCache.push(imageNameSmall);
+    console.log('Pushed images to filestocache');
+}
 
 self.addEventListener('install', function(event) {
     console.log('Attempting to install service worker and cache static assets');
@@ -25,11 +34,7 @@ self.addEventListener('install', function(event) {
                 return cache.addAll(filesToCache);
             })
     );
-    var restaurantPromise = idb.open('restaurant-db',1,function(upgradeDb){
-        var restaurantStore= upgradeDb.createObjectStore('restaurants');
-        restaurantStore.put("hello","world");
 
-    });
 });
 
 self.addEventListener('activate', function(event) {

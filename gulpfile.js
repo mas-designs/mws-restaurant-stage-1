@@ -19,6 +19,7 @@ var devHtml="dev/*.html";
 var devCss="dev/css/*.css";
 var devJs = "dev/js/*.js";
 
+
 //dist-paths
 var dist = "dist/";
 var distCss="dist/css/";
@@ -50,6 +51,13 @@ gulp.task('js', function () {
         .pipe(gulp.dest(distJs));
 });
 
-gulp.task('build',['html','css','js']);
+gulp.task('sw',function(){
+    return gulp.src('dev/sw.js')
+        .pipe(jsmin())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('build',['html','css','js','sw']);
 
 
