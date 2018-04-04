@@ -5,13 +5,13 @@ This is my github repo for the Mobile Web Specialist Nanodegree Course @ udacity
 
 I've already passed Stage 1
 
-[x] Stage 1
+- [x] Stage 1
 
 
-[ ] Stage 2
+- [ ] Stage 2
 
 
-[ ] Stage 3
+- [ ] Stage 3
 
 
 ### How To Run
