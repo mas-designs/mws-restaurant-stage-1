@@ -3,7 +3,7 @@
 
 This is my github repo for the Mobile Web Specialist Nanodegree Course @ udacity.
 
-I've already passed Stage 1
+I've already passed:
 
 - [x] Stage 1
 
