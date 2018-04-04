@@ -16,16 +16,6 @@ var allCaches = [
     pageCacheName
 ];
 
-for(var i =1;i<11;i++){
-    var imageNameHuge='img/'+i+'-huge.jpg',
-        imageNameLarge='img/'+i+'-large.jpg',
-        imageNameSmall='img/'+i+'-small.jpg';
-    filesToCache.push(imageNameHuge);
-    filesToCache.push(imageNameLarge);
-    filesToCache.push(imageNameSmall);
-    console.log('Pushed images to filestocache');
-}
-
 self.addEventListener('install', function(event) {
     console.log('Attempting to install service worker and cache static assets');
     event.waitUntil(

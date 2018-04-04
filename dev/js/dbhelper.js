@@ -14,7 +14,7 @@ class DBHelper {
 
   /**
    * Fetch all restaurants.
-   */
+   *//*
   static fetchRestaurants(callback) {
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
@@ -29,7 +29,7 @@ class DBHelper {
     };
     xhr.send();
 
-  }
+  }*/
 
   static fetchRestaurantsFetch(callback){
       fetch(DBHelper.DATABASE_URL)
@@ -165,10 +165,10 @@ class DBHelper {
 
   /**
    * Restaurant image URL.
-   */
+   *//*
   static imageUrlForRestaurant(restaurant) {
     return (`/img/${restaurant.photograph}`);
-  }
+  }*/
 
   /**
    * Map marker for a restaurant.
