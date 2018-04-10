@@ -1,20 +1,21 @@
-var staticCacheName = 'mws-static';
-var contentImgsCache = 'mws-static-img';
-var pageCacheName = 'mws-dynamic';
-var filesToCache = [
+const staticCacheName = 'mws-static';
+const contentImgsCache = 'mws-static-img';
+const pageCacheName = 'mws-dynamic';
+const filesToCache = [
     'css/styles.min.css',
     'js/dbhelper.min.js',
-    'js/main.min.js',
-    'js/responsive_helper.min.js',
-    'js/restaurant_info.min.js',
+    'js/main.js',
+    'js/responsive_helper.js',
+    'js/restaurant_info.js',
     'index.html',
     'restaurant.html'
 ];
-var allCaches = [
+const allCaches = [
     staticCacheName,
     contentImgsCache,
     pageCacheName
 ];
+
 
 self.addEventListener('install', function(event) {
     console.log('Attempting to install service worker and cache static assets');
@@ -22,7 +23,7 @@ self.addEventListener('install', function(event) {
         caches.open(staticCacheName)
             .then(function(cache) {
                 return cache.addAll(filesToCache);
-            })
+            }).catch((error)=> console.log('caches open: ',error))
     );
 
 });

@@ -7,8 +7,9 @@
   <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
   <meta name="theme-color" content="#333">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preload" as="style" href="css/styles.min.css" onload="this.rel='stylesheet'">
+  <link rel="stylesheet" href="css/styles.min.css">
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" >
+  <link rel="manifest" href="/manifest.json">
   <title>Restaurant Reviews</title>
 </head>
 
@@ -50,23 +51,17 @@
     </section>
     <!-- End reviews -->
   </main>
-  <!-- End main -->
-  <!-- Beginning scripts -->
-  <!-- Database helpers -->
-  <script async defer  type="text/javascript" src="js/dbhelper.min.js" ></script>
-  <!-- Generel helpers-->
-  <script async defer  type="text/javascript" src="js/responsive_helper.min.js" ></script>
-  <!-- Main javascript file -->
-  <script async defer  type="text/javascript" src="js/restaurant_info.min.js" ></script>
-  <!-- Google Maps -->
-  <script async defer  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY5-Tacq3xwQ0PIeERI0GlCh2D29rNLkM&libraries=places&callback=initMap"></script>
-  <!-- End scripts -->
 
-  <!-- Beginning footer -->
+  <script type="application/javascript" charset="utf-8" src="js/idb.min.js"></script>
+  <script type="text/javascript" src="js/dbhelper.min.js" ></script>
+  <script type="text/javascript" src="js/responsive_helper.min.js" ></script>
+  <script type="text/javascript" src="js/restaurant_info.min.js" ></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY5-Tacq3xwQ0PIeERI0GlCh2D29rNLkM&libraries=places&callback=initMap"></script>
+
   <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
-  <!-- End footer -->
+
 
 
 

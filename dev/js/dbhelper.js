@@ -1,6 +1,8 @@
+
 /**
  * Common database helper functions.
  */
+let dbPromise;
 class DBHelper {
 
   /**
@@ -12,40 +14,64 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
+    /**
+     * open Database.
+     * Method to open the databaseconnection
+     * */
+  static openDatabase() {
+        return idb.open('restaurants' , 1  , function(upgradeDb) {
+            upgradeDb.createObjectStore('restaurants' ,{keyPath: 'id'});
+        });
+  }
+
   /**
    * Fetch all restaurants.
-   *//*
-  static fetchRestaurants(callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', DBHelper.DATABASE_URL);
-    xhr.onload = () => {
-      if (xhr.status === 200) { // Got a success response from server!
-        const restaurants = JSON.parse(xhr.responseText);
-        callback(null, restaurants);
-      } else { // Oops!. Got an error from server.
-        const error = (`Request failed. Returned status of ${xhr.status}`);
-        callback(error, null);
-      }
-    };
-    xhr.send();
-
-  }*/
-
+   */
   static fetchRestaurantsFetch(callback){
-      fetch(DBHelper.DATABASE_URL)
-          .then(function(response) {
-              return response.json()
-          }).catch(function(error){
-            console.log('Request failed');
-            callback(error,null);
-      }).then(function(json) {
-            callback(null,json)
-         // console.log(json)
-      }).catch(function(ex) {
-          console.log('parsing failed', ex)
-          callback(error,null)
-      })
+    //check if there is cached data, if return the data asap
+      DBHelper.getCachedMessages().then(function(data){
+          if(data.length > 0){
+              return callback(null , data);
+          }
+          // fetch data from the network, so db is updated with data
+          fetch(DBHelper.DATABASE_URL , {credentials:'same-origin'})
+              .then(res => res.json())
+              .then(data => {
+                  dbPromise.then(function(db){
+                      var transaction = db.transaction('restaurants' , 'readwrite');
+                      var store = transaction.objectStore('restaurants');
+                      data.forEach(restaurant => store.put(restaurant));
+
+                      store.openCursor(null , 'prev').then(function(cursor){
+                          return cursor.advance(100);
+                      })
+                          .then(function deleteRest(cursor){
+                              if(!cursor) {
+                                return;
+                              }
+                              cursor.delete();
+                              return cursor.continue().then(deleteRest);
+                          });
+                  });
+                  return callback(null,data);
+              })
+              .catch(err => {
+                  return callback(err , null)
+              });
+      });
   }
+    /**
+     * Get all the cached messages
+     */
+
+    static getCachedMessages(){
+        dbPromise = DBHelper.openDatabase();
+        return dbPromise.then(function(db){
+            var transaction = db.transaction('restaurants');
+            var objectStore = transaction.objectStore('restaurants');
+            return objectStore.getAll();
+        });
+    }
 
 
   /**

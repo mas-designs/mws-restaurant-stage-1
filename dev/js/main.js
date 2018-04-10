@@ -11,6 +11,7 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+  addGoogleMapsSnippet();
 });
 
 
@@ -39,6 +40,13 @@ fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
     option.value = neighborhood;
     select.append(option);
   });
+}
+
+addGoogleMapsSnippet = () =>{
+  //<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY5-Tacq3xwQ0PIeERI0GlCh2D29rNLkM&libraries=places&callback=initMap"></script>
+    var scriptSnippet = document.createElement('SCRIPT');
+    scriptSnippet.src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY5-Tacq3xwQ0PIeERI0GlCh2D29rNLkM&libraries=places&callback=initMap";
+    document.body.appendChild(scriptSnippet);
 }
 
 /**
