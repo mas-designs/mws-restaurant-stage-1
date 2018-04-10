@@ -11,7 +11,9 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
-  addGoogleMapsSnippet();
+  /*initMap();
+  updateRestaurants();*/
+  //addGoogleMapsSnippet();
 });
 
 
