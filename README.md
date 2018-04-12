@@ -5,7 +5,7 @@ This is my github repository for the Mobile Web Specialist Nanodegree Project @ 
 
 My progress within the nanodegree:
 - [x] Stage 1
-- [ ] Stage 2
+- [x] Stage 2
 - [ ] Stage 3
 
 
