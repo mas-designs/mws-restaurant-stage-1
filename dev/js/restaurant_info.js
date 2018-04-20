@@ -1,5 +1,7 @@
 let restaurant;
-var map;
+let map;
+
+
 
 /**
  * Initialize Google map, called from HTML.
@@ -18,6 +20,61 @@ window.initMap = () => {
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
     }
   });
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    let form = document.getElementById('add-review-form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        submitReviewForm();
+    });
+    window.addEventListener('online',clearOffPendingReviews);
+
+});
+
+submitReviewForm = () => {
+  let review = {};
+  let form = document.getElementById('add-review-form');
+  review['restaurant_id']=self.restaurant.id;
+  let revierName = document.getElementById('reviewerName').value;
+  let reviewerRating = document.getElementById('reviewerRating').value;
+  let reviewerComment = document.getElementById('reviewerComment').value;
+  review['name']=revierName;
+  review['rating']=reviewerRating;
+  review['comments']=reviewerComment;
+  review['createdAt']=Date.now();
+
+  DBHelper.submitReview(review);
+
+  document.getElementById('reviewerName').value='';
+  document.getElementById('reviewerRating').value='0';
+  document.getElementById('reviewerComment').value='';
+
+
+    const reviewList = document.getElementById('reviews-list');
+    let listItem = document.createDocumentFragment();
+    listItem.append(createReviewHTML(review));
+    reviewList.appendChild(listItem);
+
+};
+
+
+clearOffPendingReviews = () => {
+    console.log('bin wieder online!');
+    DBHelper.getPendingReviews().then(reviews=>{
+        DBHelper.removePendingReviews().then(()=>{//TODO: FIX OBJECT THAT IS BEING SENT
+            reviews.forEach((review)=>{
+                let modeledReview = {};
+                modeledReview['restaurant_id']=review.data.restaurant_id;
+                modeledReview['name']=review.data.name;
+                modeledReview['rating']=review.data.rating;
+                modeledReview['comments']=review.data.comments;
+                modeledReview['createdAt']=review.data.createdAt;
+
+                DBHelper.submitReview(modeledReview)
+            });
+        })
+    });
 }
 
 /**
@@ -39,7 +96,16 @@ fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
+      DBHelper.fetchReviewsById(id,(error,reviews)=>{
+        self.reviews = reviews;
+        if(!reviews){
+          console.error(error);
+          return;
+        }
+      });
+
       fillRestaurantHTML();
+      //fillReviewsHTML();
       callback(null, restaurant)
     });
   }
@@ -52,6 +118,14 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
   name.setAttribute("tabindex","0");
+
+  if(self.restaurant.is_favorite=='true'){
+      console.log('Restaurant is favorite');
+      name.innerHTML+=`<button tabindex="0" aria-label="Remove favorite mark" onclick="markFavorite(this)" class="favorite"></button>`;
+  }else{
+    console.log('Restaurant is not a favorite');
+      name.innerHTML+=`<button tabindex="0" aria-label="Mark as favorite" onclick="markFavorite(this)" class="un_favorite"></button>`;
+  }
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
@@ -71,6 +145,25 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
+}
+markFavorite=(element)=>{
+
+    if(self.restaurant.is_favorite ==='true') {
+        element.classList.remove('favorite');
+        element.classList.add('un_favorite');
+        self.restaurant.is_favorite ='false';
+        element.removeAttribute('aria-label');
+        element.setAttribute('aria-label','Mark as favorite');
+
+    } else {
+        self.restaurant.is_favorite ='true';
+        element.removeAttribute('aria-label');
+        element.setAttribute('aria-label','Remove favorite mark');
+        element.classList.remove('un_favorite');
+        element.classList.add('favorite');
+    }
+
+    DBHelper.markAsFavorite(self.restaurant);
 }
 
 /**
@@ -99,8 +192,22 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
-  const container = document.getElementById('reviews-container');
+fillReviewsHTML = (reviews = self.reviews) => {
+
+  if(self.restaurant.reviews){
+    generateReviewHTML(self.restaurant.reviews);
+
+  }else{
+    DBHelper.fetchReviewsByRestaurantId(self.restaurant.id,(error,reviewList)=>{
+      if(reviewList){
+        self.restaurant.reviews = reviewList;
+        generateReviewHTML(self.restaurant.reviews);
+      }else{
+        console.log("No review data has been pulled!");
+      }
+    });
+  }
+  /*const container = document.getElementById('reviews-container');
   const title = document.createElement('h3');
   title.innerHTML = 'Reviews';
   title.setAttribute("tabindex","0")
@@ -117,8 +224,28 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   reviews.forEach(review => {
     ul.appendChild(createReviewHTML(review));
   });
-  container.appendChild(ul);
+  container.appendChild(ul);*/
 }
+
+generateReviewHTML = (allReviews) => {
+  const reviewList = document.getElementById('reviews-list');
+  let listItem = document.createDocumentFragment();
+
+  if(allReviews && allReviews.length==0){
+    let errorMessage = document.createElement('p');
+    errorMessage.innerHTML='There are not reviews yet!';
+    reviewList.appendChild(errorMessage);
+    return;
+  }
+  allReviews.forEach(review =>{
+    listItem.append(createReviewHTML(review));
+  });
+
+  reviewList.appendChild(listItem);
+
+}
+
+
 
 /**
  * Create review HTML and add it to the webpage.
@@ -138,7 +265,7 @@ createReviewHTML = (review) => {
 
   const date = document.createElement('p');
   date.classList.add('reviewer-date')
-  date.innerHTML = review.date;
+  date.innerHTML = new Date(review.updatedAt).toDateString();
   date.setAttribute("tabindex","0");
   header.appendChild(date);
 

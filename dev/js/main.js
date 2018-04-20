@@ -1,8 +1,8 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var map
-var markers = []
+  cuisines;
+var map;
+var markers = [];
 
 
 /**
@@ -11,10 +11,15 @@ var markers = []
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+
   /*initMap();
   updateRestaurants();*/
   //addGoogleMapsSnippet();
 });
+
+
+
+
 
 
 /**
@@ -50,6 +55,8 @@ addGoogleMapsSnippet = () =>{
     scriptSnippet.src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDY5-Tacq3xwQ0PIeERI0GlCh2D29rNLkM&libraries=places&callback=initMap";
     document.body.appendChild(scriptSnippet);
 }
+
+
 
 /**
  * Fetch all cuisines and set their HTML.
@@ -190,3 +197,4 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 }
+

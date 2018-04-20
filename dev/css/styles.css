@@ -293,15 +293,89 @@ header,#breadcrumb,#breadcrumb li{
     background-color:#5C9A4F;
 }
 .reviewer-comment{
-
     padding:0 1em 1em 1em;
 }
+/*REVIEW STUFF*/
+#add-review-container{
+    width:85%;
+    border-bottom: 1px solid #d9d9d9;
+    border-top: 1px solid #fff;
+}
+#add-review-container h2{
+    color:#fff;
+    font-size:1em;
+    margin-bottom:0px;
+    text-align:left;
+}
+#add-review-container table{
+    background-color:#fff;
+    width:50%;
+}
+#add-review-container table td{
+    padding-left:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+#add-review-container textarea{
+    width:80%;
+    height:100px;
+}
 
-
-
-
-
-
+/*FAVORITE STUFF*/
+.favorite {
+    background-color: #f3f3f3;
+    color: #ef9b0f;
+    margin-left:20px;
+    margin-top: -10px;
+    padding: 2px;
+    font-size: 30px;
+    border-radius:30px;
+    width: 48px;
+    height: 48px;
+    cursor:pointer;
+    border:0px solid white;
+}
+.favorite::after {
+    content: "\2665";
+    outline: unset;
+}
+.favorite:hover,
+.favorite:focus,
+.favorite:active{
+    content: "\2661";
+    color: #ef9b0f;
+    outline: 0;
+    border: 0;
+    background-color: #f3f3f3;
+}
+.un_favorite {
+    cursor:pointer;
+    background-color: #f3f3f3;
+    color: white;
+    margin-left: 20px;
+    margin-top: -10px;
+    padding: 2px;
+    font-size: 30px;
+    border-radius:30px;
+    width: 48px;
+    height: 48px;
+    outline:0;
+    border:0px solid white;
+}
+.un_favorite::after {
+    content: "\2661";
+    color:black;
+    outline:0;
+}
+.un_favorite:hover,
+.un_favorite:focus,
+.un_favorite:active{
+    color:black;
+    outline: 0;
+    content: "\2665";
+    border: 0;
+    background-color: #f3f3f3;
+}
 
 @media only screen and (max-width: 420px) {
     nav h1 a {
@@ -338,7 +412,7 @@ header,#breadcrumb,#breadcrumb li{
         text-transform: uppercase;
         width: 240px;
     }
-    #restaurant-container, #reviews-container {
+    #restaurant-container, #reviews-container{
         border-bottom: 1px solid #d9d9d9;
         border-top: 1px solid #fff;
         width:100%;
@@ -370,17 +444,16 @@ header,#breadcrumb,#breadcrumb li{
         text-transform: uppercase;
         width: 400px;
     }
-    #restaurant-container, #reviews-container {
+    #restaurant-container, #reviews-container{
         border-bottom: 1px solid #d9d9d9;
         border-top: 1px solid #fff;
         padding-left:120px;
         width:100%;
     }
-    #reviews-container {
+    #reviews-container{
         padding: 30px 40px 80px;
     }
     #reviews-list {
-
         padding: 0;
         margin-right:2em;
     }
@@ -418,7 +491,7 @@ header,#breadcrumb,#breadcrumb li{
         text-transform: uppercase;
         width: 800px;
     }
-    #restaurant-container, #reviews-container {
+    #restaurant-container, #reviews-container{
         border-bottom: 1px solid #d9d9d9;
         border-top: 1px solid #fff;
 
@@ -427,11 +500,10 @@ header,#breadcrumb,#breadcrumb li{
         width: 50%;*/
         width:100%;
     }
-    #reviews-container {
+    #reviews-container,#add-review-container{
         padding: 30px 40px 80px 90px;
     }
     #reviews-list {
-
         padding: 0;
         margin-right:2em;
     }
