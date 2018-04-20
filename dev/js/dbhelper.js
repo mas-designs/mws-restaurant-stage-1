@@ -329,42 +329,6 @@ class DBHelper {
         })
     }
 
-
-
-
-        /*DBHelper.getCachedMessages().then(function(data){
-            if(data.length > 0){
-                return callback(null , data);
-            }
-            // fetch data from the network, so db is updated with data
-            fetch(DBHelper.DATABASE_URL , {credentials:'same-origin'})
-                .then(res => res.json())
-                .then(data => {
-                    dbPromise.then(function(db){
-                        var transaction = db.transaction('restaurants' , 'readwrite');
-                        var store = transaction.objectStore('restaurants');
-                        data.forEach(restaurant => store.put(restaurant));
-
-                        store.openCursor(null , 'prev').then(function(cursor){
-                            return cursor.advance(100);
-                        })
-                            .then(function deleteRest(cursor){
-                                if(!cursor) {
-                                    return;
-                                }
-                                cursor.delete();
-                                return cursor.continue().then(deleteRest);
-                            });
-                    });
-                    return callback(null,data);
-                })
-                .catch(err => {
-                    return callback(err , null)
-                });
-        });
-
-    }*/
-
     /**
      * Fetch restaurants by a cuisine type with proper error handling.
      */
