@@ -6,7 +6,7 @@ This is my github repository for the Mobile Web Specialist Nanodegree Project @ 
 My progress within the nanodegree:
 - [x] Stage 1
 - [x] Stage 2
-- [ ] Stage 3
+- [x] Stage 3
 
 
 ## [](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2#getting-started)Getting Started
